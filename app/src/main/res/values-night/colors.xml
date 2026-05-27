@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Переопределение цветов для темной темы -->
+
+    <!-- Фон всего приложения становится темно-серым, а не черным (так приятнее глазам) -->
+    <color name="background_color">#121212</color>
+
+    <!-- Фон карточек чуть светлее фона приложения -->
+    <color name="card_background">#1E1E1E</color>
+
+    <!-- Текст становится белым или светло-серым -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+
+    <!-- Цвет времени оставляем ярким для контраста -->
+    <color name="text_time">#03DAC6</color>
+
+    <!-- Основные цвета Material Design для темной темы -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FFFFFFFF</color> <!-- В темной теме "black" часто используют как белый для текста -->
+    <color name="white">#FF000000</color> <!-- А "white" как черный для акцентов -->
+</resources>

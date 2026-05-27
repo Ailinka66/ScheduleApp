@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Тема для темного режима -->
+    <style name="Theme.ScheduleApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_200</item> <!-- Более светлый фиолетовый для темной темы -->
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item> <!-- Черный текст на фиолетовой кнопке -->
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+        <!-- Фон всего окна приложения (чтобы не мерцало белым при переключении) -->
+        <item name="android:windowBackground">#121212</item>
+
+        <!-- Цвет фона карточек и полей ввода в темной теме -->
+        <item name="colorSurface">#1E1E1E</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+
+        <!-- Цвет фона основного контента (если используешь background_color из colors.xml, убедись, что он темный) -->
+        <!-- Если в colors.xml background_color светло-серый (#F5F5F5), то здесь мы его переопределяем локально или меняем в colors.xml (night) -->
+    </style>
+</resources>
