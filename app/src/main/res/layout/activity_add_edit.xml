@@ -73,9 +73,7 @@
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Сохранить пару"
-            android:backgroundTint="#6200EE"
-            android:textColor="#FFFFFF" />
+            android:text="@string/btn_save"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="@color/white" />
 

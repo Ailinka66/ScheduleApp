@@ -1,3 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ScheduleApp</string>
+    <string name="app_name">Расписание Занятий</string>
+
+    <!-- Заголовки разделов в настройках -->
+    <string name="settings_section_appearance">Внешний вид</string>
+    <string name="settings_section_data">Данные</string>
+
+    <!-- Тексты для переключателей и кнопок -->
+    <string name="settings_theme_toggle">Темная тема</string>
+    <string name="settings_clear_button">Удалить все данные</string>
+    <!-- Кнопки -->
+    <string name="btn_save">Сохранить пару</string>
+    <string name="btn_update">Обновить пару</string>
+    <string name="btn_delete">Удалить</string>
+    <string name="btn_back">Назад</string>
+    <string name="btn_edit">Изменить</string>
+    <string name="btn_add">Добавить пару</string>
+
+    <!-- Подсказки для полей ввода -->
+    <string name="hint_subject">Название предмета</string>
+    <string name="hint_teacher">ФИО преподавателя</string>
+    <string name="hint_room">Номер аудитории</string>
+    <string name="hint_start_time">Время начала (ЧЧ:ММ)</string>
+    <string name="hint_end_time">Время конца (ЧЧ:ММ)</string>
+    <string name="label_day">День недели:</string>
+
+    <!-- Сообщения -->
+    <string name="msg_saved">Пара сохранена!</string>
+    <string name="msg_updated">Пара обновлена!</string>
+    <string name="msg_deleted">Пара удалена</string>
+    <string name="msg_error_save">Ошибка сохранения</string>
+    <string name="msg_all_data_deleted">Все данные удалены</string>
+
+    <!-- Экран настроек -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_theme">Темная тема</string>
+    <string name="settings_clear_data">Удалить все данные</string>
+
+    <!-- Экран "О приложении" -->
+    <string name="about_title">О приложении</string>
+    <string name="about_app_name">Расписание Занятий</string>
+    <string name="about_version">Версия 1.0</string>
+    <string name="about_developer">Разработчик:</string>
+    <string name="about_developer_name">Агиза [Твоя Фамилия], Группа [Номер]</string>
+    <string name="about_technologies">Технологии:\nJava, SQLite, RecyclerView, Material Design</string>
+
+    <!-- Пустое состояние -->
+    <string name="empty_schedule_title">Расписание пусто</string>
+    <string name="empty_schedule_subtitle">Нажмите +, чтобы добавить первую пару</string>
+
+    <!-- Меню -->
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_about">О приложении</string>
 </resources>
