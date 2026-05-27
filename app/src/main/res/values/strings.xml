@@ -42,7 +42,7 @@
     <string name="about_app_name">Расписание Занятий</string>
     <string name="about_version">Версия 1.0</string>
     <string name="about_developer">Разработчик:</string>
-    <string name="about_developer_name">Агиза [Твоя Фамилия], Группа [Номер]</string>
+    <string name="about_developer_name"> Сафина Зарина | Мухамедьянова Айгиза </string>
     <string name="about_technologies">Технологии:\nJava, SQLite, RecyclerView, Material Design</string>
 
     <!-- Пустое состояние -->

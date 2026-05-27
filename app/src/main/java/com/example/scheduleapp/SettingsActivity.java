@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private Switch switchTheme;
+    private androidx.appcompat.widget.SwitchCompat switchTheme;
     private Button btnClearData;
     private DatabaseHelper dbHelper;
 
@@ -23,11 +23,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // 1. Проверяем сохраненную тему
+        // 1. Применяем тему ДО создания активности (чтобы не мерцало)
         SharedPreferences prefs = getSharedPreferences("AppSettings", MODE_PRIVATE);
         boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
 
-        // 2. Применяем тему ДО создания активности
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -37,12 +36,18 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        // Инициализация
+        // 2. Инициализация компонентов
         dbHelper = new DatabaseHelper(this);
         switchTheme = findViewById(R.id.switchTheme);
         btnClearData = findViewById(R.id.btnClearData);
 
-        // Настройка Toolbar
+        // Проверка на null, чтобы избежать краша, если элемент не найден
+        if (switchTheme == null || btnClearData == null) {
+            Toast.makeText(this, "Ошибка верстки: элементы не найдены", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // 3. Настройка Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -50,15 +55,17 @@ public class SettingsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // 1. Логика переключения темы
-        loadThemePreference(); // Загружаем сохраненную настройку
+        // 4. Устанавливаем начальное положение переключателя БЕЗ триггера слушателя
+        switchTheme.setOnCheckedChangeListener(null); // Отключаем слушатель
+        switchTheme.setChecked(isDarkMode);           // Ставим галочку
 
+        // 5. Включаем слушатель для будущих изменений
         switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            saveThemePreference(isChecked); // Сохраняем настройку
-            applyTheme(isChecked);          // Применяем тему сразу
+            saveThemePreference(isChecked);
+            applyTheme(isChecked);
         });
 
-        // 2. Логика очистки данных
+        // 6. Логика очистки данных
         btnClearData.setOnClickListener(v -> showClearDataDialog());
     }
 
