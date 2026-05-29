@@ -50,42 +50,50 @@
             android:textSize="16sp"
             android:text="День: Понедельник" />
 
-        <!-- Кнопки действий -->
+        <!-- Тип занятия -->
+        <TextView
+            android:id="@+id/tvDetailType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="Тип: Лекция"
+            android:layout_marginTop="8dp" />
+
+        <!-- Кнопки действий (вертикально) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnEdit"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="Изменить"
                 android:backgroundTint="#FF9800"
                 android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btnDelete"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="Удалить"
-                android:backgroundTint="#F44336"
+                android:backgroundTint="@color/error_color"
                 android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btnBack"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Назад"
-                android:backgroundTint="#6200EE"
+                android:backgroundTint="@color/colorPrimary"
                 android:textColor="#FFFFFF" />
-        </LinearLayout>
 
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

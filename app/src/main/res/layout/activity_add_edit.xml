@@ -15,7 +15,7 @@
             android:id="@+id/etSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Название предмета"
+            android:hint="@string/hint_subject"
             android:inputType="textCapSentences"
             android:layout_marginBottom="12dp" />
 
@@ -24,7 +24,7 @@
             android:id="@+id/etTeacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ФИО преподавателя"
+            android:hint="@string/hint_teacher"
             android:inputType="textPersonName"
             android:layout_marginBottom="12dp" />
 
@@ -33,19 +33,32 @@
             android:id="@+id/etRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Номер аудитории"
+            android:hint="@string/hint_room"
             android:inputType="text"
             android:layout_marginBottom="12dp" />
 
-        <!-- День недели (Spinner) -->
+        <!-- День недели -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="День недели:"
+            android:text="@string/label_day"
             android:layout_marginBottom="4dp" />
 
         <Spinner
             android:id="@+id/spinnerDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Тип занятия (НОВОЕ) -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Тип занятия:"
+            android:layout_marginBottom="4dp" />
+
+        <Spinner
+            android:id="@+id/spinnerType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp" />
@@ -55,7 +68,7 @@
             android:id="@+id/etStartTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Время начала (ЧЧ:ММ)"
+            android:hint="@string/hint_start_time"
             android:inputType="time"
             android:layout_marginBottom="12dp" />
 
@@ -64,11 +77,11 @@
             android:id="@+id/etEndTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Время конца (ЧЧ:ММ)"
+            android:hint="@string/hint_end_time"
             android:inputType="time"
             android:layout_marginBottom="16dp" />
 
-        <!-- Кнопка Сохранить -->
+        <!-- Кнопка сохранения -->
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"

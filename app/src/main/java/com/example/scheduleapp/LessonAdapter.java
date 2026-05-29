@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonViewHolder> {
+public class LessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private List<Lesson> lessonList;
     private OnItemClickListener listener;
 
-    // Интерфейс для обработки кликов по элементу
     public interface OnItemClickListener {
         void onItemClick(Lesson lesson);
     }
@@ -28,27 +27,44 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         this.listener = listener;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return lessonList.get(position).getType();
+    }
+
     @NonNull
     @Override
-    public LessonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Загружаем разметку item_lesson.xml
-        View view = LayoutInflater.from(context).inflate(R.layout.item_lesson, parent, false);
-        return new LessonViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == Lesson.TYPE_HEADER) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_header, parent, false);
+            return new HeaderViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_lesson, parent, false);
+            return new LessonViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LessonViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Lesson currentLesson = lessonList.get(position);
 
-        // Заполняем поля данными из объекта Lesson
-        holder.tvSubject.setText(currentLesson.getSubject());
-        holder.tvTime.setText(currentLesson.getStartTime() + " - " + currentLesson.getEndTime());
-        holder.tvTeacher.setText(currentLesson.getTeacher());
-        holder.tvRoom.setText("Ауд. " + currentLesson.getRoom());
-        holder.tvDay.setText(currentLesson.getDayOfWeek());
+        if (currentLesson.getType() == Lesson.TYPE_HEADER) {
+            // Заполняем заголовок
+            HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
+            headerHolder.tvHeaderDay.setText(currentLesson.getDayOfWeek());
+        } else {
+            // Заполняем карточку пары
+            LessonViewHolder lessonHolder = (LessonViewHolder) holder;
+            lessonHolder.tvSubject.setText(currentLesson.getSubject());
+            lessonHolder.tvTime.setText(currentLesson.getStartTime() + " - " + currentLesson.getEndTime());
+            lessonHolder.tvTeacher.setText(currentLesson.getTeacher());
+            lessonHolder.tvRoom.setText("Ауд. " + currentLesson.getRoom());
 
-        // Обработка клика по элементу
-        holder.itemView.setOnClickListener(v -> listener.onItemClick(currentLesson));
+            // Скрываем день недели в карточке, так как он уже есть в заголовке сверху
+            lessonHolder.tvDay.setVisibility(View.GONE);
+
+            lessonHolder.itemView.setOnClickListener(v -> listener.onItemClick(currentLesson));
+        }
     }
 
     @Override
@@ -56,10 +72,18 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         return lessonList.size();
     }
 
-    // Класс ViewHolder (хранит ссылки на элементы внутри одной карточки)
+    // ViewHolder для заголовка
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+        TextView tvHeaderDay;
+        public HeaderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvHeaderDay = itemView.findViewById(R.id.tvHeaderDay);
+        }
+    }
+
+    // ViewHolder для пары
     public static class LessonViewHolder extends RecyclerView.ViewHolder {
         TextView tvSubject, tvTime, tvTeacher, tvRoom, tvDay;
-
         public LessonViewHolder(@NonNull View itemView) {
             super(itemView);
             tvSubject = itemView.findViewById(R.id.tvSubject);

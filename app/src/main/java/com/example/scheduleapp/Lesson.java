@@ -1,26 +1,34 @@
-package com.example.scheduleapp; // Проверь, совпадает ли имя пакета с твоим!
+package com.example.scheduleapp;
 
 public class Lesson {
-    private int id;
-    private String subject;       // Название предмета
-    private String teacher;       // ФИО преподавателя
-    private String room;          // Номер аудитории
-    private String dayOfWeek;     // День недели (Пн, Вт...)
-    private String startTime;     // Время начала
-    private String endTime;       // Время конца
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_LESSON = 1;
 
-    // Конструктор для создания новой записи (без ID, так как его присвоит база)
-    public Lesson(String subject, String teacher, String room, String dayOfWeek, String startTime, String endTime) {
+    private int id;
+    private String subject;
+    private String teacher;
+    private String room;
+    private String dayOfWeek;
+    private String startTime;
+    private String endTime;
+    private String lessonType; // <-- Новое поле
+    private int type;
+
+    // 1. Конструктор для СОЗДАНИЯ новой пары (8 параметров)
+    public Lesson(String subject, String teacher, String room, String dayOfWeek, String startTime, String endTime, String lessonType) {
         this.subject = subject;
         this.teacher = teacher;
         this.room = room;
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.lessonType = lessonType;
+        this.type = TYPE_LESSON;
+        this.id = -1;
     }
 
-    // Конструктор для получения записи из базы (с ID)
-    public Lesson(int id, String subject, String teacher, String room, String dayOfWeek, String startTime, String endTime) {
+    // 2. Конструктор для РЕДАКТИРОВАНИЯ/БД (9 параметров)
+    public Lesson(int id, String subject, String teacher, String room, String dayOfWeek, String startTime, String endTime, String lessonType) {
         this.id = id;
         this.subject = subject;
         this.teacher = teacher;
@@ -28,9 +36,29 @@ public class Lesson {
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.lessonType = lessonType;
+        this.type = TYPE_LESSON;
+    }
+
+    // 3. Конструктор для ЗАГОЛОВКА
+    public Lesson(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+        this.type = TYPE_HEADER;
+        this.subject = "";
+        this.teacher = "";
+        this.room = "";
+        this.startTime = "";
+        this.endTime = "";
+        this.lessonType = "";
+        this.id = -1;
     }
 
     // Геттеры и сеттеры
+    public String getLessonType() { return lessonType; }
+    public void setLessonType(String lessonType) { this.lessonType = lessonType; }
+
+    public int getType() { return type; }
+    public void setType(int type) { this.type = type; }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getSubject() { return subject; }

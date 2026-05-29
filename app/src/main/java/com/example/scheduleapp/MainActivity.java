@@ -5,8 +5,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import android.content.Intent;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -76,11 +74,31 @@ public class MainActivity extends AppCompatActivity {
     // Метод загрузки пар из базы данных
     private void loadLessonsFromDatabase() {
         lessonList.clear();
+
+        // 1. Получаем все пары из базы
         List<Lesson> lessonsFromDb = dbHelper.getAllLessons();
-        lessonList.addAll(lessonsFromDb);
+
+        // 2. Сортируем их по дню и времени (используем метод из прошлого шага)
+        sortLessonsByDayAndTime(lessonsFromDb);
+
+        // 3. Группируем: добавляем заголовки перед каждой новой группой дней
+        String lastDay = "";
+        for (Lesson lesson : lessonsFromDb) {
+            String currentDay = lesson.getDayOfWeek();
+
+            // Если день изменился, добавляем заголовок
+            if (!currentDay.equals(lastDay)) {
+                lessonList.add(new Lesson(currentDay)); // Добавляем объект-заголовок
+                lastDay = currentDay;
+            }
+
+            // Добавляем саму пару
+            lessonList.add(lesson);
+        }
+
         adapter.notifyDataSetChanged();
 
-        // Логика показа/скрытия пустого состояния
+        // Логика пустого состояния
         if (lessonList.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             emptyStateView.setVisibility(View.VISIBLE);
@@ -131,5 +149,34 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    /**
+     * Сортирует список пар по дням недели и времени начала
+     */
+    private void sortLessonsByDayAndTime(List<Lesson> lessons) {
+        // Создаём карту для порядка дней недели
+        java.util.Map<String, Integer> dayOrder = new java.util.HashMap<>();
+        dayOrder.put("Понедельник", 1);
+        dayOrder.put("Вторник", 2);
+        dayOrder.put("Среда", 3);
+        dayOrder.put("Четверг", 4);
+        dayOrder.put("Пятница", 5);
+        dayOrder.put("Суббота", 6);
+        dayOrder.put("Воскресенье", 7);
 
+        java.util.Collections.sort(lessons, new java.util.Comparator<Lesson>() {
+            @Override
+            public int compare(Lesson l1, Lesson l2) {
+                // 1. Сначала сравниваем по дню недели
+                int day1 = dayOrder.getOrDefault(l1.getDayOfWeek(), 99);
+                int day2 = dayOrder.getOrDefault(l2.getDayOfWeek(), 99);
+
+                if (day1 != day2) {
+                    return Integer.compare(day1, day2);
+                }
+
+                // 2. Если дни одинаковые, сравниваем по времени начала
+                return l1.getStartTime().compareTo(l2.getStartTime());
+            }
+        });
+    }
 }

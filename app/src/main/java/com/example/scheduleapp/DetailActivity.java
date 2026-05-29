@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private TextView tvSubject, tvTime, tvTeacher, tvRoom, tvDay;
-    private Button btnDelete, btnBack, btnEdit; // Добавили btnEdit
+    private TextView tvSubject, tvTime, tvTeacher, tvRoom, tvDay, tvType;
+    private Button btnDelete, btnBack, btnEdit; // <-- Вот эта строка!
     private DatabaseHelper dbHelper;
     private int lessonId;
 
@@ -41,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         tvTeacher = findViewById(R.id.tvDetailTeacher);
         tvRoom = findViewById(R.id.tvDetailRoom);
         tvDay = findViewById(R.id.tvDetailDay);
+        tvType = findViewById(R.id.tvDetailType);
 
         btnDelete = findViewById(R.id.btnDelete);
         btnBack = findViewById(R.id.btnBack);
@@ -77,6 +78,7 @@ public class DetailActivity extends AppCompatActivity {
             tvTeacher.setText("Преподаватель: " + lesson.getTeacher());
             tvRoom.setText("Аудитория: " + lesson.getRoom());
             tvDay.setText("День: " + lesson.getDayOfWeek());
+            tvType.setText("Тип: " + lesson.getLessonType());
         }
     }
 
@@ -86,8 +88,7 @@ public class DetailActivity extends AppCompatActivity {
         if (currentLesson != null) {
             Intent intent = new Intent(DetailActivity.this, AddEditActivity.class);
 
-            // Передаем все данные старой пары в AddEditActivity
-            intent.putExtra("is_edit_mode", true); // Флаг, что мы в режиме редактирования
+            intent.putExtra("is_edit_mode", true);
             intent.putExtra("edit_id", lessonId);
             intent.putExtra("edit_subject", currentLesson.getSubject());
             intent.putExtra("edit_teacher", currentLesson.getTeacher());
@@ -95,9 +96,10 @@ public class DetailActivity extends AppCompatActivity {
             intent.putExtra("edit_day", currentLesson.getDayOfWeek());
             intent.putExtra("edit_start", currentLesson.getStartTime());
             intent.putExtra("edit_end", currentLesson.getEndTime());
+            intent.putExtra("edit_type", currentLesson.getLessonType()); // <-- ДОБАВИТЬ ЭТУ СТРОКУ
 
             startActivity(intent);
-            finish(); // Закрываем экран деталей, чтобы не дублировать их в стеке
+            finish();
         }
     }
 
@@ -112,5 +114,13 @@ public class DetailActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Нет", null)
                 .show();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Перезагружаем данные пары из базы, чтобы отобразить актуальные изменения
+        if (lessonId != -1) {
+            loadLessonDetails(lessonId);
+        }
     }
 }
