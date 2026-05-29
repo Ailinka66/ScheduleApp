@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Переопределение цветов для темной темы -->
-
+    <color name="header_text_color">#BB86FC</color>
     <!-- Фон всего приложения становится темно-серым, а не черным (так приятнее глазам) -->
     <color name="background_color">#121212</color>
 
