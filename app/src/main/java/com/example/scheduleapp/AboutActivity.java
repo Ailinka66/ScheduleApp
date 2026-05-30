@@ -1,9 +1,7 @@
 package com.example.scheduleapp;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 public class AboutActivity extends AppCompatActivity {
@@ -11,17 +9,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 1. Проверяем сохраненную тему
-        SharedPreferences prefs = getSharedPreferences("AppSettings", MODE_PRIVATE);
-        boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
-
-        // 2. Применяем тему ДО создания активности
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
-        // 3. Только после этого вызываем super.onCreate()
+        ThemeUtils.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 

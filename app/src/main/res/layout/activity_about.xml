@@ -34,13 +34,14 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@mipmap/ic_launcher"
+                android:contentDescription="@string/about_logo_desc"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Расписание Занятий"
+                android:text="@string/about_app_title"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary" />
@@ -48,7 +49,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Версия 1.0"
+                android:text="@string/about_app_version"
                 android:textSize="16sp"
                 android:textColor="@color/text_secondary"
                 android:layout_marginTop="8dp" />
@@ -63,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Разработчик:"
+                android:text="@string/label_developer"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary" />
 
@@ -78,7 +79,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\nТехнологии:\nJava, SQLite, RecyclerView, Material Design"
+                android:text="@string/label_technologies"
                 android:textColor="@color/text_secondary"
                 android:layout_marginTop="16dp"
                 android:lineSpacingExtra="4dp" />

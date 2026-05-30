@@ -1,16 +1,13 @@
 package com.example.scheduleapp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 public class AddEditActivity extends AppCompatActivity {
 
@@ -19,10 +16,10 @@ public class AddEditActivity extends AppCompatActivity {
     private Button btnSave;
     private DatabaseHelper dbHelper;
 
-    private String[] daysOfWeek = {"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
+    private final String[] daysOfWeek = {"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
 
     // Массив типов занятий
-    private String[] lessonTypes = {
+    private final String[] lessonTypes = {
             "Лекция",
             "Практическое занятие",
             "Лабораторная работа",
@@ -41,16 +38,7 @@ public class AddEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 1. Проверяем сохраненную тему
-        SharedPreferences prefs = getSharedPreferences("AppSettings", MODE_PRIVATE);
-        boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
-
-        // 2. Применяем тему ДО создания активности
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
+        ThemeUtils.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit);
 

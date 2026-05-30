@@ -1,38 +1,27 @@
 package com.example.scheduleapp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
+import android.widget.ImageView;
 
 public class DetailActivity extends AppCompatActivity {
 
     private TextView tvSubject, tvTime, tvTeacher, tvRoom, tvDay, tvType;
-    private Button btnDelete, btnBack, btnEdit; // <-- Вот эта строка!
+    private ImageView ivRandomImg;
     private DatabaseHelper dbHelper;
     private int lessonId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 1. Проверяем сохраненную тему
-        SharedPreferences prefs = getSharedPreferences("AppSettings", MODE_PRIVATE);
-        boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
-
-        // 2. Применяем тему ДО создания активности
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
+        ThemeUtils.applyTheme(this);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_detail);
 
         // Инициализация компонентов
@@ -42,10 +31,11 @@ public class DetailActivity extends AppCompatActivity {
         tvRoom = findViewById(R.id.tvDetailRoom);
         tvDay = findViewById(R.id.tvDetailDay);
         tvType = findViewById(R.id.tvDetailType);
+        ivRandomImg = findViewById(R.id.ivRandomImg);
 
-        btnDelete = findViewById(R.id.btnDelete);
-        btnBack = findViewById(R.id.btnBack);
-        btnEdit = findViewById(R.id.btnEdit); // Находим кнопку
+        Button btnDelete = findViewById(R.id.btnDelete);
+        Button btnBack = findViewById(R.id.btnBack);
+        Button btnEdit = findViewById(R.id.btnEdit);
 
         dbHelper = new DatabaseHelper(this);
 
@@ -55,6 +45,7 @@ public class DetailActivity extends AppCompatActivity {
 
         if (lessonId != -1) {
             loadLessonDetails(lessonId);
+            setRandomImage();
         } else {
             Toast.makeText(this, "Ошибка: пара не найдена", Toast.LENGTH_SHORT).show();
             finish();
@@ -74,11 +65,12 @@ public class DetailActivity extends AppCompatActivity {
         Lesson lesson = dbHelper.getLesson(id);
         if (lesson != null) {
             tvSubject.setText(lesson.getSubject());
-            tvTime.setText(lesson.getStartTime() + " - " + lesson.getEndTime());
-            tvTeacher.setText("Преподаватель: " + lesson.getTeacher());
-            tvRoom.setText("Аудитория: " + lesson.getRoom());
-            tvDay.setText("День: " + lesson.getDayOfWeek());
-            tvType.setText("Тип: " + lesson.getLessonType());
+            tvTime.setText(getString(R.string.time_format,
+                    lesson.getStartTime(), lesson.getEndTime()));
+            tvTeacher.setText(getString(R.string.label_teacher, lesson.getTeacher()));
+            tvRoom.setText(getString(R.string.label_room, lesson.getRoom()));
+            tvDay.setText(getString(R.string.labell_day, lesson.getDayOfWeek()));
+            tvType.setText(getString(R.string.label_type, lesson.getLessonType()));
         }
     }
 
@@ -122,5 +114,27 @@ public class DetailActivity extends AppCompatActivity {
         if (lessonId != -1) {
             loadLessonDetails(lessonId);
         }
+    }
+
+    // Метод установки случайной картинки
+    private void setRandomImage() {
+        // Массив из твоих картинок (убедись, что они есть в папке drawable!)
+        int[] images = new int[] {
+                R.drawable.p1, R.drawable.p2, R.drawable.p3,
+                R.drawable.p4, R.drawable.p5, R.drawable.p6,
+                R.drawable.p7, R.drawable.p8, R.drawable.p9,
+                R.drawable.p10, R.drawable.p11, R.drawable.p12,
+                R.drawable.p13, R.drawable.p14, R.drawable.p15,
+                R.drawable.p16, R.drawable.p17,
+                R.drawable.p18, R.drawable.p19, R.drawable.p20, R.drawable.p21,
+                R.drawable.p22, R.drawable.p23,
+                R.drawable.p24, R.drawable.p25, R.drawable.p26, R.drawable.p27,
+        };
+
+        // Выбираем случайную
+        int randomIndex = new java.util.Random().nextInt(images.length);
+
+        // Устанавливаем её
+        ivRandomImg.setImageResource(images[randomIndex]);
     }
 }

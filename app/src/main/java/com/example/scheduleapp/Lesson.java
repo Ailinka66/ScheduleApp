@@ -5,14 +5,14 @@ public class Lesson {
     public static final int TYPE_LESSON = 1;
 
     private int id;
-    private String subject;
-    private String teacher;
-    private String room;
-    private String dayOfWeek;
-    private String startTime;
-    private String endTime;
-    private String lessonType; // <-- Новое поле
-    private int type;
+    private final String subject;
+    private final String teacher;
+    private final String room;
+    private final String dayOfWeek;
+    private final String startTime;
+    private final String endTime;
+    private final String lessonType;
+    private final int type;
 
     // 1. Конструктор для СОЗДАНИЯ новой пары (8 параметров)
     public Lesson(String subject, String teacher, String room, String dayOfWeek, String startTime, String endTime, String lessonType) {
@@ -55,22 +55,14 @@ public class Lesson {
 
     // Геттеры и сеттеры
     public String getLessonType() { return lessonType; }
-    public void setLessonType(String lessonType) { this.lessonType = lessonType; }
 
     public int getType() { return type; }
-    public void setType(int type) { this.type = type; }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getSubject() { return subject; }
-    public void setSubject(String subject) { this.subject = subject; }
     public String getTeacher() { return teacher; }
-    public void setTeacher(String teacher) { this.teacher = teacher; }
     public String getRoom() { return room; }
-    public void setRoom(String room) { this.room = room; }
     public String getDayOfWeek() { return dayOfWeek; }
-    public void setDayOfWeek(String dayOfWeek) { this.dayOfWeek = dayOfWeek; }
     public String getStartTime() { return startTime; }
-    public void setStartTime(String startTime) { this.startTime = startTime; }
     public String getEndTime() { return endTime; }
-    public void setEndTime(String endTime) { this.endTime = endTime; }
 }

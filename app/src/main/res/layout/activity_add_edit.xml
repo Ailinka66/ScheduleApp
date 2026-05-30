@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_subject"
             android:inputType="textCapSentences"
+            android:autofillHints="name"
             android:layout_marginBottom="12dp" />
 
         <!-- Преподаватель -->
@@ -25,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_teacher"
+            android:autofillHints="personName"
             android:inputType="textPersonName"
             android:layout_marginBottom="12dp" />
 
@@ -35,6 +37,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_room"
             android:inputType="text"
+            android:autofillHints="name"
             android:layout_marginBottom="12dp" />
 
         <!-- День недели -->
@@ -50,11 +53,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp" />
 
-        <!-- Тип занятия (НОВОЕ) -->
+        <!-- Тип занятия -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Тип занятия:"
+            android:text="@string/label_lesson_type"
             android:layout_marginBottom="4dp" />
 
         <Spinner

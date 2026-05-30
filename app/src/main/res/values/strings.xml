@@ -24,7 +24,7 @@
     <string name="hint_start_time">Время начала (ЧЧ:ММ)</string>
     <string name="hint_end_time">Время конца (ЧЧ:ММ)</string>
     <string name="label_day">День недели:</string>
-
+    <string name="label_lesson_type">Тип занятия:</string>
     <!-- Сообщения -->
     <string name="msg_saved">Пара сохранена!</string>
     <string name="msg_updated">Пара обновлена!</string>
@@ -52,4 +52,28 @@
     <!-- Меню -->
     <string name="menu_settings">Настройки</string>
     <string name="menu_about">О приложении</string>
+
+    <!-- DetailActivity -->
+    <string name="label_teacher">Преподаватель: %1$s</string>
+    <string name="label_room">Аудитория: %1$s</string>
+    <string name="labell_day">День: %1$s</string>
+    <string name="label_type">Тип: %1$s</string>
+    <string name="time_format">%1$s - %2$s</string>
+    <string name="random_image_desc">Случайное изображение для пары</string>
+
+    <!-- Strings for About Screen -->
+    <string name="about_app_title">Расписание Занятий</string>
+    <string name="about_app_version">Версия 1.0</string>
+    <string name="label_developer">Разработчик:</string>
+    <string name="label_technologies">Технологии:\nJava, SQLite, RecyclerView, Material Design</string>
+    <string name="about_logo_desc">Логотип приложения Расписание Занятий</string>
+
+    <!-- Заглушки для предпросмотра DetailActivity -->
+    <string name="preview_subject">Предмет</string>
+    <string name="preview_time">08:30 - 10:00</string>
+    <string name="preview_teacher">Преподаватель: Иванов И.И.</string>
+    <string name="preview_room">Аудитория: 305</string>
+    <string name="preview_day">День: Понедельник</string>
+    <string name="preview_type">Тип: Лекция</string>
+
 </resources>

@@ -16,21 +16,10 @@ public class SettingsActivity extends AppCompatActivity {
     private Button btnClearData;
     private DatabaseHelper dbHelper;
 
-    // Ключ для сохранения настройки темы
-    private static final String PREFS_NAME = "AppSettings";
-    private static final String KEY_THEME = "isDarkMode";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 1. Применяем тему ДО создания активности (чтобы не мерцало)
-        SharedPreferences prefs = getSharedPreferences("AppSettings", MODE_PRIVATE);
-        boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
-
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        ThemeUtils.applyTheme(this); // ✅ Заменили 10 строк на одну!
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
@@ -54,47 +43,29 @@ public class SettingsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // 4. Устанавливаем начальное положение переключателя БЕЗ триггера слушателя
+        // 4. Получаем текущее состояние темы для переключателя
+        boolean isDarkMode = getSharedPreferences("AppSettings", MODE_PRIVATE)
+                .getBoolean("isDarkMode", false);
+
+        // 5. Устанавливаем начальное положение переключателя БЕЗ триггера слушателя
         switchTheme.setOnCheckedChangeListener(null); // Отключаем слушатель
         switchTheme.setChecked(isDarkMode);           // Ставим галочку
 
-        // 5. Включаем слушатель для будущих изменений
+        // 6. Включаем слушатель для будущих изменений
         switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
             saveThemePreference(isChecked);
             applyTheme(isChecked);
         });
 
-        // 6. Логика очистки данных
+        // 7. Логика очистки данных
         btnClearData.setOnClickListener(v -> showClearDataDialog());
-    }
-
-    // Метод загрузки сохраненной темы
-    private void loadThemePreference() {
-        SharedPreferences prefs = getSharedPreferences("AppSettings", MODE_PRIVATE);
-        boolean isDarkMode = prefs.getBoolean("isDarkMode", false);
-
-        // Просто устанавливаем положение переключателя БЕЗ вызова логики применения темы
-        // Чтобы не триггерить OnCheckedChangeListener лишний раз
-        switchTheme.setOnCheckedChangeListener(null); // Временно отключаем слушатель
-        switchTheme.setChecked(isDarkMode);           // Ставим галочку
-        switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            saveThemePreference(isChecked);
-            applyTheme(isChecked);
-        });                                           // Включаем слушатель обратно
-
-        // Применяем тему сразу при запуске экрана настроек, чтобы фон соответствовал
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
     }
 
     // Метод сохранения темы
     private void saveThemePreference(boolean isDarkMode) {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("AppSettings", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(KEY_THEME, isDarkMode);
+        editor.putBoolean("isDarkMode", isDarkMode);
         editor.apply();
     }
 
@@ -118,10 +89,7 @@ public class SettingsActivity extends AppCompatActivity {
                 .setTitle("Очистка данных")
                 .setMessage("Вы уверены? Все записи расписания будут удалены безвозвратно.")
                 .setPositiveButton("Да", (dialog, which) -> {
-                    // Вызываем метод удаления всех записей из DatabaseHelper
-                    // (Тебе нужно будет добавить этот метод в DatabaseHelper, см. ниже!)
                     dbHelper.deleteAllLessons();
-
                     Toast.makeText(this, "Все данные удалены", Toast.LENGTH_SHORT).show();
                     finish(); // Закрываем экран настроек
                 })
